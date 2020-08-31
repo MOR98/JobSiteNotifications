@@ -9,7 +9,9 @@ toaster = ToastNotifier()
 toaster.show_toast("Job Alert", "online", threaded=True,
                    icon_path=None, duration=6)  
 
-
+urlA = "fillme"
+urlB = "fillme"
+historyPath = "fillme"
 #this function takes in a url and returns the number of times our desired keywords are found 
 #print is used to display or not the count
 def countJobs(Print,url):
@@ -46,11 +48,11 @@ while(True):
   print(datetime.datetime.now())
 
   #open file to check previous value
-  history = open('history txt file path','r')
+  history = open(historyPath,'r')
   lines = history.readlines()
   #Company A 
   PrevCountS = CurrentCountS
-  CurrentCountS = countJobs(0,'URL to company career page')
+  CurrentCountS = countJobs(0,urlA)
   lines[0] = str(CurrentCountS)
 
   if(PrevCountS != CurrentCountS):
@@ -61,7 +63,7 @@ while(True):
 
   #Intel Leixlip
   PrevCountI = CurrentCountI
-  CurrentCountI = countJobs(0,'URL to company career page')
+  CurrentCountI = countJobs(0,urlB)
   lines[1] = str(CurrentCountI)
 
   if(PrevCountI != CurrentCountI):
@@ -72,7 +74,7 @@ while(True):
 
   history.close()
   #open file for write and update
-  history = open('history txt file path','w')
+  history = open(historyPath,'w')
   history.write(str(CurrentCountS)+ "\n")
   history.write(str(CurrentCountI))
   history.close()
