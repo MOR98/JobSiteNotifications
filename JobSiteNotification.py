@@ -9,9 +9,9 @@ toaster = ToastNotifier()
 toaster.show_toast("Job Alert", "online", threaded=True,
                    icon_path=None, duration=6)  
 
-urlA = "fillme"
-urlB = "fillme"
-historyPath = "fillme"
+urlA = "fill"
+urlB = "fill"
+historyP = "history.txt"
 #this function takes in a url and returns the number of times our desired keywords are found 
 #print is used to display or not the count
 def countJobs(Print,url):
@@ -34,26 +34,22 @@ def countJobs(Print,url):
   return count
 
 #Needs inital value to compare, using history file we can remember even if the script has not been running
-history = open('history txt file path','r')
+history = open(str(historyP),'r')
 lines = history.readlines()
-CurrentCountS = int(lines[0])
-CurrentCountI = int(lines[1])
+CurrentCountS = int(lines[1])
+CurrentCountI = int(lines[2])
 history.close()
 
 
 #While true, reassign new previous number, then check if this has changed, toast if needed then save to file
 while(True):
-  print('Company A keywords found last run: '  ,CurrentCountS)
-  print('Company B keywords found last run: '  ,CurrentCountI)
-  print(datetime.datetime.now())
+  runtime = datetime.datetime.now()
+  print(runtime)
 
-  #open file to check previous value
-  history = open(historyPath,'r')
-  lines = history.readlines()
   #Company A 
   PrevCountS = CurrentCountS
   CurrentCountS = countJobs(0,urlA)
-  lines[0] = str(CurrentCountS)
+ 
 
   if(PrevCountS != CurrentCountS):
     print("NewJob!")
@@ -64,7 +60,6 @@ while(True):
   #Company B
   PrevCountI = CurrentCountI
   CurrentCountI = countJobs(0,urlB)
-  lines[1] = str(CurrentCountI)
 
   if(PrevCountI != CurrentCountI):
     print("NewJob!")
@@ -72,9 +67,12 @@ while(True):
     toaster.show_toast("Job Alert", "Jobs Updated by Company B", threaded=True,
                    icon_path=None, duration=None)
 
-  history.close()
+
+  print('Company A keywords : '  ,CurrentCountS)
+  print('Company B keywords : '  ,CurrentCountI)
   #open file for write and update
-  history = open(historyPath,'w')
+  history = open(str(historyP),'w')
+  history.write(str(runtime)+ "\n")
   history.write(str(CurrentCountS)+ "\n")
   history.write(str(CurrentCountI))
   history.close()
