@@ -78,4 +78,4 @@ while(True):
   history.write(str(CurrentCountS)+ "\n")
   history.write(str(CurrentCountI))
   history.close()
-  time.sleep(60)
+  time.sleep(3600)
