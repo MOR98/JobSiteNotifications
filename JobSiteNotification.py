@@ -61,7 +61,7 @@ while(True):
     toaster.show_toast("Job Alert", "Jobs Updated by Company A", threaded=True,
                    icon_path=None, duration=None)  
 
-  #Intel Leixlip
+  #Company B
   PrevCountI = CurrentCountI
   CurrentCountI = countJobs(0,urlB)
   lines[1] = str(CurrentCountI)
